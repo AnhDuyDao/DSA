@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Main {
     // Dang: Doan con co do dai nho nhat co tong >= target
     public static int minSubArrayLen(int target, int[] nums) {
@@ -82,6 +84,35 @@ public class Main {
         return (double) maxSum / k;
     }
 
+    // Smallest subarray with sum greater than a given value
+    public static ArrayList<Integer> smallestSubarrSumGreater(int[] arr, int target) {
+        int n = arr.length;
+        int left = 0, sum = 0;
+        int minLength = Integer.MAX_VALUE;
+        int minStart = -1, minEnd = -1;
+
+        for (int right = 0; right < n; right++) {
+            sum += arr[right];
+
+            while (sum > target) {
+                if (right - left + 1 < minLength) {
+                    minLength = right - left + 1;
+                    minStart = left;
+                    minEnd = right;
+                }
+                sum -= arr[left];
+                left++;
+            }
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        if (minStart != -1) {
+            for (int i = minStart; i <= minEnd; i++) {
+                result.add(arr[i]);
+            }
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
 //        String s = "abcabcbb";
@@ -90,8 +121,14 @@ public class Main {
 //        int k = 4;
 //        int n = arr.length;
 //        System.out.println(maxSum(arr, n, k));
-        int[] nums = {1,12,-5,-6,50,3};
-        int k = 4;
-        System.out.println(findMaxAverage(nums, k));
+//        int[] nums = {1,12,-5,-6,50,3};
+//        int k = 4;
+//        System.out.println(findMaxAverage(nums, k));
+        int[] arr = {1, 4, 45, 6, 0, 19};
+        int target = 51;
+        ArrayList<Integer> result = smallestSubarrSumGreater(arr, target);
+        for (int num : result) {
+            System.out.print(num + " ");
+        }
     }
 }
