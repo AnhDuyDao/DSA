@@ -68,14 +68,30 @@ public class Main {
         return maxSum;
     }
 
+    // 643. Maximum Average Subarray I
+    public static double findMaxAverage(int[] nums, int k) {
+        int maxSum = 0;
+        for (int i = 0; i < k; i++) {
+            maxSum += nums[i];
+        }
+        int windowSum = maxSum;
+        for (int i = k; i < nums.length; i++) {
+            windowSum += nums[i] - nums[i - k];
+            maxSum = Math.max(maxSum, windowSum);
+        }
+        return (double) maxSum / k;
+    }
 
 
     public static void main(String[] args) {
 //        String s = "abcabcbb";
 //        System.out.println(lengthOfLongestSubstring2(s));
-        int arr[] = { 1, 4, 2, 10, 2, 3, 1, 0, 20 };
+//        int arr[] = { 1, 4, 2, 10, 2, 3, 1, 0, 20 };
+//        int k = 4;
+//        int n = arr.length;
+//        System.out.println(maxSum(arr, n, k));
+        int[] nums = {1,12,-5,-6,50,3};
         int k = 4;
-        int n = arr.length;
-        System.out.println(maxSum(arr, n, k));
+        System.out.println(findMaxAverage(nums, k));
     }
 }
