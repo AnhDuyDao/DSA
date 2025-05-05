@@ -52,10 +52,30 @@ public class Main {
         return maxLength;
     }
 
+    // BT: Maximum sum of all subarrays of size K
+    public static int maxSum(int[] arr, int n, int k) {
+        int maxSum = 0;
+
+        for (int i = 0; i < k; i++) {
+            maxSum += arr[i];
+        }
+
+        int windowSum = maxSum;
+        for (int i = k; i < n; i++) {
+            windowSum += arr[i] - arr[i - k];
+            maxSum = Math.max(maxSum, windowSum);
+        }
+        return maxSum;
+    }
+
 
 
     public static void main(String[] args) {
-        String s = "abcabcbb";
-        System.out.println(lengthOfLongestSubstring2(s));
+//        String s = "abcabcbb";
+//        System.out.println(lengthOfLongestSubstring2(s));
+        int arr[] = { 1, 4, 2, 10, 2, 3, 1, 0, 20 };
+        int k = 4;
+        int n = arr.length;
+        System.out.println(maxSum(arr, n, k));
     }
 }
