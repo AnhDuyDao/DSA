@@ -114,6 +114,32 @@ public class Main {
         return result;
     }
 
+    // Sửa bài: Longest Substring Without Repeating Characters bằng Sliding Window bằng cách trừ mã ASCII của 2 kí tự
+    // Lỗi nếu gặp khoảng trắng hoặc kí tự in hoa ngo phạm vi mảng boolean[26]
+    public static int lengthOfLongestSubstring3(String s) {
+        int maxLength = Integer.MIN_VALUE;
+        int left = 0;
+        // Assuming only lowercase letters a-z ASCII with values 0-25
+        boolean[] visited = new boolean[26];
+        // Extending the current window to the right
+        for (int right = 0; right < s.length(); right++) {
+            // If character is repeated, move left pointer marking
+            // visited characters as false until the repeating
+            // character is no longer part of the current window
+            while (visited[s.charAt(right) - 'a'] == true) {
+                visited[s.charAt(left) - 'a'] = false;
+                left++;
+            }
+            // Marked char as visited
+            visited[s.charAt(right) - 'a'] = true;
+            // Update the maxLength
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+        return maxLength != Integer.MIN_VALUE ? maxLength : 0;
+    }
+
+
+
     public static void main(String[] args) {
 //        String s = "abcabcbb";
 //        System.out.println(lengthOfLongestSubstring2(s));
@@ -124,11 +150,23 @@ public class Main {
 //        int[] nums = {1,12,-5,-6,50,3};
 //        int k = 4;
 //        System.out.println(findMaxAverage(nums, k));
-        int[] arr = {1, 4, 45, 6, 0, 19};
-        int target = 51;
-        ArrayList<Integer> result = smallestSubarrSumGreater(arr, target);
-        for (int num : result) {
-            System.out.print(num + " ");
-        }
+//        int[] arr = {1, 4, 45, 6, 0, 19};
+//        int target = 51;
+//        ArrayList<Integer> result = smallestSubarrSumGreater(arr, target);
+//        for (int num : result) {
+//            System.out.print(num + " ");
+//        }
+
+//        char c1 = s.charAt(2);
+//        int asciic1 = (int) c1;
+//        System.out.println(asciic1);
+//        char c2 = s.charAt(0);
+//        int asciic2 = (int) c2;
+//        System.out.println(asciic2);
+//        System.out.println(c1 - c2);
+
+        String s = " ";
+        int result = lengthOfLongestSubstring2(s);
+        System.out.println(result);
     }
 }
