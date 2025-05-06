@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
     // Dang: Doan con co do dai nho nhat co tong >= target
@@ -138,7 +140,24 @@ public class Main {
         return maxLength != Integer.MIN_VALUE ? maxLength : 0;
     }
 
-
+    // Dùng HashSet vì HashSet có thể chứa các kí tự không trùng lặp
+    public static int lengthOfLongestSubstring4(String s) {
+        Set<Character> setChar = new HashSet<>();
+        int left = 0;
+        int right = 0;
+        int maxLength = Integer.MIN_VALUE;
+        while (right < s.length()) {
+            if (!setChar.contains(s.charAt(right))) {
+                setChar.add(s.charAt(right));
+                maxLength = Math.max(maxLength, right - left + 1);
+                right++;
+            } else {
+                setChar.remove(s.charAt(left));
+                left++;
+            }
+        }
+        return maxLength != Integer.MIN_VALUE ? maxLength : 0;
+    }
 
     public static void main(String[] args) {
 //        String s = "abcabcbb";
@@ -165,8 +184,8 @@ public class Main {
 //        System.out.println(asciic2);
 //        System.out.println(c1 - c2);
 
-        String s = " ";
-        int result = lengthOfLongestSubstring2(s);
+        String s = "abcabcbb";
+        int result = lengthOfLongestSubstring4(s);
         System.out.println(result);
     }
 }
