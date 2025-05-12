@@ -42,8 +42,8 @@ public class Main {
     }
 
     public static List<Integer> spiralOrder(int[][] matrix) {
-        int m = matrix.length; // số hàng
-        int n = matrix[0].length; // số cột
+        int m = matrix.length;
+        int n = matrix[0].length;
 
         List<Integer> result = new ArrayList<>();
 
@@ -79,6 +79,24 @@ public class Main {
         return result;
     }
 
+
+    public static int[][] transpose(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int rowTransposeMatrix = n;
+        int columnTransposeMatrix = m;
+        int[][] transposedMatrix = new int[rowTransposeMatrix][columnTransposeMatrix];
+
+        for (int i = 0; i < rowTransposeMatrix; i++) {
+            for (int j = 0; j < columnTransposeMatrix; j++) {
+                transposedMatrix[i][j] = matrix[j][i];
+            }
+        }
+
+        return transposedMatrix;
+    }
+
     public static void main(String[] args) {
         int[][] matrix = {
                 {1, 2, 3},
@@ -101,6 +119,11 @@ public class Main {
                 {0, 1, 0},
                 {1, 1, 0},
                 {0, 1, 1}
+        };
+
+        int[][] matrix4 = {
+                {1, 2, 3},
+                {4, 5, 6}
         };
 
         int m = matrix.length; // số hàng
@@ -140,14 +163,24 @@ public class Main {
 //            System.out.print(matrix[i][n - 1 - i] + " ");
 //        }
 
-        System.out.println("Sum of the matrix: " + diagonalSum(matrix2));
+//        System.out.println("Sum of the matrix: " + diagonalSum(matrix2));
+//
+//        System.out.println("Count of 1s around (1, 1): " + countOnesAround(matrix3, 1, 1));
+//
+//
+//        List<Integer> result1 = spiralOrder(matrix);
+//        for (int num : result1) {
+//            System.out.print(num + " ");
+//        }
 
-        System.out.println("Count of 1s around (1, 1): " + countOnesAround(matrix3, 1, 1));
 
 
-        List<Integer> result = spiralOrder(matrix);
-        for (int num : result) {
-            System.out.print(num + " ");
+        int[][] result2 = transpose(matrix4);
+        for (int i = 0; i < result2.length; i++) {
+            for (int j = 0; j < result2[i].length; j++) {
+                System.out.print(result2[i][j] + " ");
+            }
+            System.out.println();
         }
     }
 }
